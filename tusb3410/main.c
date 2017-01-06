@@ -20,14 +20,14 @@
 #include "tusb3410.h"
 #include "ser.h"
 
-extern tEDB xdata xEPIDsc[3];
-extern tEDB xdata xEPODsc[3];
+extern tEDB __xdata xEPIDsc[3];
+extern tEDB __xdata xEPODsc[3];
 
 extern void SerInit(void);
 extern void UsbInit(void);
 extern void UsbReset(void);
 
-extern bit fEP2Snd;
+extern __bit fEP2Snd;
 extern void usbEP2SndNxt();
 /* Hier nun die IRQ-Srtns (siehe oben).						*/
 
@@ -75,13 +75,13 @@ void isr_usbrst(void) {
 void isrnop(void) { }
 
 // Another 'undocumented feature'. What is irq 1 used for?			*
-void irq1(void) interrupt 1 {
+void irq1(void) __interrupt 1 {
   BYTE v = VECINT;
   UsbInit();
 }
 
 // The real one irg 0:	*
-void irq0(void) interrupt 0 using 0 _naked {
+void irq0(void) __interrupt 0 __using 0 __naked {
   // Es gibt wohl keine vernuenftige Moeglichkeit, den Dispatcher in C zu	*
   // realisieren. Alle Versuche enden in viel zu langem Code oder aber sehr	*
   // 'annoying' warnings. Nun also direkt in Assembler!				*
@@ -89,7 +89,7 @@ void irq0(void) interrupt 0 using 0 _naked {
   // interrupt 0:	'externer IRQ' mit Vec auf 0x0003			*
   // using 0:		wir verwenden RegBank 0 (info an den compiler)		*
   // _naked:		wir wollen keinerlei Prae/Postamble vom Compiler!	*
-  _asm ;
+  __asm ;
   ;
   ; // noch einige Worte zur INTEL-Scheisse:				*
   ; // Der Stack arbeitet falsch herum -> er 'growed' nach oben !!!	*
@@ -249,7 +249,7 @@ void irq0(void) interrupt 0 using 0 _naked {
   .word	_isrnop	;		// 0x7c	unused			*
   .word	_isrnop	;		// 0x7e	unused			*
   ;
-  _endasm	;
+  __endasm	;
 }
 
 

@@ -6,8 +6,8 @@
 #include "tusb3410.h"
 #include "usb.h"
 
-extern int SerialSet(tDEVICE_REQUEST xdata *);
-extern xdata * SerialGet(tDEVICE_REQUEST xdata *);
+extern int SerialSet(tDEVICE_REQUEST __xdata *);
+extern __xdata * SerialGet(tDEVICE_REQUEST __xdata *);
 
 /*----------------------------------------------------------------------------+
 | Internal Constant Definition                                                |
@@ -20,24 +20,24 @@ extern xdata * SerialGet(tDEVICE_REQUEST xdata *);
 /* Falls sich einer wundert:								*
  * Die folgenden Descriptoren sollten eigentlich die bereits irgendwo definierten	*
  * Strukturen sein. Nur: Aus irgendwelchen Gruenden lassen sich keine Strukturen	*
- * im 'code segment' anlegen. Deswegen hier Kopien der Strucs als 'byte arrays'.	*
+ * im '__code segment' anlegen. Deswegen hier Kopien der Strucs als 'byte arrays'.	*
  * INTELligent, nicht wahr?								*
  *											*
  * Und das mir sonst keiner Fragen stellt:						*
  * INTELligenterweise koennen weder DMA- noch USB-Controller diese Daten im		*
- * 'code segment' lesen. Sie werden daher beim 'init' in das ominoese 'xram' kopiert.	*
+ * '__code segment' lesen. Sie werden daher beim 'init' in das ominoese 'xram' kopiert.	*
  * --- Also: Keine Fragen, Hauser!							*/
 
-code BYTE UsbDevDsc[] = {
+__code BYTE UsbDevDsc[] = {
 #if 1
 #include "tusb3410_device_descriptor.inc"
 #else
   sizeof(tDEVICE_DESCRIPTOR),	// Length of this descriptor (12h bytes)
-  DESC_TYPE_DEVICE,		// Type code of this descriptor (01h)
+  DESC_TYPE_DEVICE,		// Type __code of this descriptor (01h)
     0x10,0x01,			// Release of USB spec (Rev 1.1)
-    0xff,			// Device's base class code - vendor specific
-    0,				// Device's sub class code
-    0,				// Device's protocol type code
+    0xff,			// Device's base class __code - vendor specific
+    0,				// Device's sub class __code
+    0,				// Device's protocol type __code
     EP0_PACKET_SIZE,		// End point 0's packet size = 8
     0x51,0x04,			// Vendor ID for device (lo,hi) TI=0x0451
 //  0x14,0x14,			// Product ID for device (lo,hi)
@@ -57,19 +57,19 @@ code BYTE UsbDevDsc[] = {
  * cfg-dsc,ifa-dsc,epa-dsc[,epb-dsc[,ep...]][,ifa-dsc,epa-dsc[,epb-dsc[,ep...]]][,..]	*
  *											*/
 
-BYTE code UsbFunDsc[] = {
+BYTE __code UsbFunDsc[] = {
 #if 1
 #include "tusb3410_config_descriptor.inc"
 #else
   // Configuration  Descriptor (the one and only one!)		*
   sizeof(tCONFIG_DESCRIPTOR),	// bLength
   DESC_TYPE_CONFIG,		// bDescriptorType
-    0xff, 0x00,			// wTotalLength -- size data will be inserted at copy time
+    0xff, 0x00,			// wTotalLength -- size data will be inserted __at copy time
     0x01,			// bNumInterfaces
     0x02,			// bConfigurationValue
     0x00,			// iConfiguration
-    0x80,			// bmAttributes, bus bootcode
-    0x32,			// Max. Power Consumption at 2mA unit
+    0x80,			// bmAttributes, bus boot__code
+    0x32,			// Max. Power Consumption __at 2mA unit
   // Interface Descriptor, size = 0x09
   sizeof(tINTERFACE_DESCRIPTOR),	// bLength
   DESC_TYPE_INTERFACE,		// bDescriptorType
@@ -83,21 +83,21 @@ BYTE code UsbFunDsc[] = {
   // Endpoint Descriptor, size = 0x07 for OEP1
   sizeof(tENDPOINT_DESCRIPTOR),	// bLength
   DESC_TYPE_ENDPOINT,		// bDescriptorType
-    0x01,			// bEndpointAddress; bit7=1 for IN, bits 3-0=1 for ep1
+    0x01,			// bEndpointAddress; __bit7=1 for IN, __bits 3-0=1 for ep1
     EP_DESC_ATTR_TYPE_BULK,	// bmAttributes, bulk transfer
     0x40, 0x00,			// wMaxPacketSize, 64 bytes
     0x00,			// bInterval
   // Endpoint Descriptor, size = 0x07 for IEP1
   sizeof(tENDPOINT_DESCRIPTOR),	// bLength
   DESC_TYPE_ENDPOINT,		// bDescriptorType
-    0x81,			// bEndpointAddress; bit7=1 for IN, bits 3-0=1 for ep1
+    0x81,			// bEndpointAddress; __bit7=1 for IN, __bits 3-0=1 for ep1
     EP_DESC_ATTR_TYPE_BULK,	// bmAttributes, bulk transfer
     0x40, 0x00,			// wMaxPacketSize, 64 bytes
     0x00,			// bInterval
   // Endpoint Descriptor, size = 0x07 for IEP2
   sizeof(tENDPOINT_DESCRIPTOR),	// bLength
   DESC_TYPE_ENDPOINT,		// bDescriptorType
-    0x82,			// bEndpointAddress; bit7=1 for IN, bits 3-0=1 for ep1
+    0x82,			// bEndpointAddress; __bit7=1 for IN, __bits 3-0=1 for ep1
     EP_DESC_ATTR_TYPE_INT,	// bmAttributes, bulk transfer
 //    0x01, 0x00,			// wMaxPacketSize, 1 byte
     0x40,0x00,
@@ -105,7 +105,7 @@ BYTE code UsbFunDsc[] = {
 #endif
 };
 
-code BYTE UsbStrDsc[] = {
+__code BYTE UsbStrDsc[] = {
 #if 1
 #include "tusb3410_string_descriptor.inc"
 #else
@@ -141,42 +141,42 @@ code BYTE UsbStrDsc[] = {
 //-----typ-----|-where-|-name-->
 
 
-WORD		idata	wEP2SndCnt;     // Number of bytes left to send via EP0
-xdata BYTE *	idata	wEP2SndPtr;	// pointer for InpEndPnt2-(snd)-tranfers
-//xdata BYTE *	idata	sndbuf;	// pointer for InpEndPnt2-(snd)-tranfers
-bit			fEP2Snd;	// set if Control Send Transfer active
-BYTE xdata 	at 	0xfe00 xEP2SndBuff[64];
+WORD		__idata	wEP2SndCnt;     // Number of bytes left to send via EP0
+__xdata BYTE *	__idata	wEP2SndPtr;	// pointer for InpEndPnt2-(snd)-tranfers
+//__xdata BYTE *	__idata	sndbuf;	// pointer for InpEndPnt2-(snd)-tranfers
+__bit			fEP2Snd;	// set if Control Send Transfer active
+BYTE __xdata 	__at 	0xfe00 xEP2SndBuff[64];
 
-BYTE		idata	bActCfg;	// 0 if USB device is not configured
-BYTE		idata	bActIfc;	// interface number
+BYTE		__idata	bActCfg;	// 0 if USB device is not configured
+BYTE		__idata	bActIfc;	// interface number
 
-WORD		idata	wEP0SndCnt;     // Number of bytes left to send via EP0
-WORD		idata	wEP0RcvCnt;     // Number of bytes left to recv via EP0
-xdata BYTE *	idata	wEP0SndPtr;	// pointer for InpEndPnt0-(snd)-tranfers
-xdata BYTE *	idata	wEP0RcvPtr;	// pointer for OutEndPnt0-(rcv)-tranfers
+WORD		__idata	wEP0SndCnt;     // Number of bytes left to send via EP0
+WORD		__idata	wEP0RcvCnt;     // Number of bytes left to recv via EP0
+__xdata BYTE *	__idata	wEP0SndPtr;	// pointer for InpEndPnt0-(snd)-tranfers
+__xdata BYTE *	__idata	wEP0RcvPtr;	// pointer for OutEndPnt0-(rcv)-tranfers
 
-bit			fEP0Snd;	// set if Control Send Transfer active
-bit			fEP0Rcv;	// set if Control Rcvr Transfer active
+__bit			fEP0Snd;	// set if Control Send Transfer active
+__bit			fEP0Rcv;	// set if Control Rcvr Transfer active
 
 // Die folgenden Buffer werden direkt von der Hardware gelesen/beschrieben:	*
 
 //	0xff60 .. 0xff7f	reserved
-tEDB		xdata at 0xff48	xEPIDsc[3];
+tEDB		__xdata __at 0xff48	xEPIDsc[3];
 //	0xff20 .. 0xff47	reserved
-tEDB		xdata at 0xff08	xEPODsc[3];
-tDEVICE_REQUEST	xdata at 0xff00	tSetupPacket;
-BYTE		xdata at 0xfef8	xEP0SndBuf[EP0_PACKET_SIZE];
-BYTE		xdata at 0xfef0	xEP0RcvBuf[EP0_PACKET_SIZE];
+tEDB		__xdata __at 0xff08	xEPODsc[3];
+tDEVICE_REQUEST	__xdata __at 0xff00	tSetupPacket;
+BYTE		__xdata __at 0xfef8	xEP0SndBuf[EP0_PACKET_SIZE];
+BYTE		__xdata __at 0xfef0	xEP0RcvBuf[EP0_PACKET_SIZE];
 
 //	0xfe00 .. 0xfeef	not used
-BYTE		xdata at 0xfb00	xDMABuffers[0x300];	// 6*2*64 byte (6 Endpoints)
+BYTE		__xdata __at 0xfb00	xDMABuffers[0x300];	// 6*2*64 byte (6 Endpoints)
 
-BYTE		xdata	xUsbDevDsc[sizeof(UsbDevDsc)];
-BYTE		xdata	xUsbFunDsc[sizeof(UsbFunDsc)];
-BYTE		xdata	xUsbStrDsc[sizeof(UsbStrDsc)];
+BYTE		__xdata	xUsbDevDsc[sizeof(UsbDevDsc)];
+BYTE		__xdata	xUsbFunDsc[sizeof(UsbFunDsc)];
+BYTE		__xdata	xUsbStrDsc[sizeof(UsbStrDsc)];
 
-BYTE		xdata	abUsbRequestReturnData[USB_RETURN_DATA_LENGTH];
-BYTE xdata at 0xfe00 xDMABuff1[64];
+BYTE		__xdata	abUsbRequestReturnData[USB_RETURN_DATA_LENGTH];
+BYTE __xdata __at 0xfe00 xDMABuff1[64];
 /*----------------------------------------------------------------------------+
 | General Subroutines                                                         |
 +----------------------------------------------------------------------------*/
@@ -267,14 +267,14 @@ void usbEP0Snd(void * vec, int len) {
 void usbEP0SndNul(void) {
   fEP0Snd	= 0;	// no completion call from send done irq
   wEP0SndCnt	= 0;	// 0 bytes to send
-  bIEPBCNT0	= 0;	// enable ACK response with len=0 at hardware
+  bIEPBCNT0	= 0;	// enable ACK response with len=0 __at hardware
 }
 
 //----------------------------------------------------------------------------
 void usbEP0RcvNxt(void)
 {
   bOEPCNFG0 |= EPCNF_STALL;
-  // bootcode does not use this.
+  // boot__code does not use this.
 #if 0
   BYTE bIndex,bByte;
 
@@ -286,7 +286,7 @@ void usbEP0RcvNxt(void)
 
     wEP0RcvCnt -= (WORD)bByte;
 
-    // clear the NAK bit for next packet
+    // clear the NAK __bit for next packet
     if(wEP0RcvCnt > 0){
       bOEPBCNT0 = 0;        
       fEP0Rcv = 1;
@@ -403,7 +403,7 @@ void usbGetEndpointStatus(void) {
       // output endpoint 0
       abUsbRequestReturnData[0] = (BYTE)(bOEPCNFG0 & EPCNF_STALL);
     }
-    abUsbRequestReturnData[0] = abUsbRequestReturnData[0] >> 3; // STALL is on bit 3
+    abUsbRequestReturnData[0] = abUsbRequestReturnData[0] >> 3; // STALL is on __bit 3
     bOEPBCNT0 = 0;                    // for status stage    
     usbEP0Snd((BYTE *)&abUsbRequestReturnData[0], 2);
   } else {
@@ -419,7 +419,7 @@ void usbGetEndpointStatus(void) {
 	abUsbRequestReturnData[0] = (BYTE)(xEPODsc[bEndpointNumber].bEPCNF & EPCNF_STALL);
       }
     }   // no response if endpoint is not supported.
-    abUsbRequestReturnData[0] = abUsbRequestReturnData[0] >> 3; // STALL is on bit 3        
+    abUsbRequestReturnData[0] = abUsbRequestReturnData[0] >> 3; // STALL is on __bit 3        
     bOEPBCNT0 = 0;
     usbEP0Snd((BYTE *)&abUsbRequestReturnData[0], 2);
   } 
@@ -442,14 +442,14 @@ void usbSetAddress(void) {
 void usbSetConfiguration(void) {
   bOEPCNFG0 |= EPCNF_STALL;	// control write without data stage
   // configuration number is in bValueL
-  // change the code if more than one configuration is supported
+  // change the __code if more than one configuration is supported
   bActCfg = tSetupPacket.bValueL;
   usbEP0SndNul();
 }
 
 //----------------------------------------------------------------------------
 void usbSetDeviceFeature(void) {
-  // stall because bootcode does not support
+  // stall because boot__code does not support
   usbEP0Stall();
     
   // bValueL contains feature selector
@@ -496,7 +496,7 @@ void usbSetInterface(void) {
   bOEPCNFG0 |= EPCNF_STALL;	// control write without data stage
   // bValueL contains alternative setting
   // bIndexL contains interface number
-  // change code if more than one interface is supported
+  // change __code if more than one interface is supported
   bActIfc = tSetupPacket.bIndexL;
   usbEP0SndNul();
 }
@@ -504,7 +504,7 @@ void usbSetInterface(void) {
 //----------------------------------------------------------------------------
 void usbInvalidRequest(void) {
   // check if setup overwrite is set
-  // if set, do nothing since we might decode it wrong
+  // if set, do nothing since we might de__code it wrong
   // setup packet buffer could be modified by hardware if another setup packet
   // was sent while we are deocding setup packet
   if ( (bUSBSTA & USBSTA_STPOW) == 0x00 ) usbEP0Stall();
@@ -519,9 +519,9 @@ void usbVendorSetRequest(void) {
 }
 
 void usbVendorGetRequest(void) {
-  BYTE xdata * vec;
+  BYTE __xdata * vec;
   int len;
-  if ( ( vec = (BYTE xdata *)SerialGet(&tSetupPacket)) ) {
+  if ( ( vec = (BYTE __xdata *)SerialGet(&tSetupPacket)) ) {
     len = *(vec);
     usbEP0Snd(vec+1, len);
   }
@@ -548,7 +548,7 @@ struct cdc_line {
   BYTE DataBits;        /* 5, 6, 7, 8 or 16 */
 };
 
-code struct cdc_line cdc_line = {
+__code struct cdc_line cdc_line = {
   460800, 460800>>8, 460800>>16, 460800>>24,
   0, 0, 8,
 };
@@ -598,7 +598,7 @@ void usbSetSerNum()
  *										*
  * This structure just helps to define the entries within the following array:	*/
 typedef struct _tspp {
-  BYTE	bmRequestType;		// See bit definitions below
+  BYTE	bmRequestType;		// See __bit definitions below
   BYTE	bRequest;		// See value definitions below
   BYTE	bValueL;		// Meaning varies with request type
   BYTE	bValueH;		// Meaning varies with request type
@@ -611,7 +611,7 @@ typedef struct _tspp {
 } tspp, *ptspp;
 
 /* This is the definition table which uses the above structure:			*/
-code tspp tUsbReqDef[] = {
+__code tspp tUsbReqDef[] = {
     //
     // the following listing are for vendor specific USB requests
     //
@@ -740,7 +740,7 @@ code tspp tUsbReqDef[] = {
     0xdf,&usbSetConfiguration
   },
 
-    // set descriptor (Bootcode stalls to this request)
+    // set descriptor (Boot__code stalls to this request)
 //    USB_REQ_TYPE_OUTPUT | USB_REQ_TYPE_STANDARD | USB_REQ_TYPE_DEVICE,
 //    USB_REQ_SET_DESCRIPTOR,
 //    0xff,0xff,                      // descriptor type and descriptor index
@@ -783,7 +783,7 @@ code tspp tUsbReqDef[] = {
     0xd7,&usbSetInterface
   },
 
-    // synch frame (Bootcode stalls to this request)
+    // synch frame (Boot__code stalls to this request)
 //    USB_REQ_TYPE_OUTPUT | USB_REQ_TYPE_STANDARD | USB_REQ_TYPE_INTERFACE,
 //    USB_REQ_SYNCH_FRAME,
 //    0x00,0x00,
@@ -833,7 +833,7 @@ void usbSetupCompare(void) {
   BYTE *def, buf[8];
   BYTE typ, req;
 
-  // copy setup packet to idata to speed up decoding
+  // copy setup packet to __idata to speed up decoding
   for (i = 0; i < 8; i++)	buf[i] = *(pbEP0_SETUP_ADDRESS+i);
 
   // point to beginning of the matrix        
@@ -895,7 +895,7 @@ void isr_setup(void) {	// setup packet received (at oep0)
   // bevor die aktive 'setup transaction' (mit data/ack-stages) beendet ist. Weiss	*
   // irgendeine Sau, wie das gehen soll, wenn das Device immer nur NAKs liefert?	*
   do {
-    // copy the MSB of bmRequestType to DIR bit of USBCTL
+    // copy the MSB of bmRequestType to DIR __bit of USBCTL
     if((tSetupPacket.bmRequestType & USB_REQ_TYPE_INPUT) == USB_REQ_TYPE_INPUT)
       bUSBCTL |= USBCTL_DIR;
     else
@@ -907,7 +907,7 @@ void isr_setup(void) {	// setup packet received (at oep0)
     // clear out return data buffer
     for(i=0;i<USB_RETURN_DATA_LENGTH;i++) abUsbRequestReturnData[i] = 0x00;
 
-    // decode and process the request
+    // de__code and process the request
     usbSetupCompare();
   } while ( bUSBSTA & USBSTA_STPOW );
   bUSBCTL &= ~USBCTL_SIR;	// clr flag to hardware: 'setup service in progress'	*
@@ -994,7 +994,7 @@ void UsbInit(void) {
   bActCfg	= 0;	// device unconfigured
   bActIfc	= 0;
   
-  // copy our descriptors from code to xram	*
+  // copy our descriptors from __code to xram	*
   for ( i=0; i<sizeof(UsbDevDsc); i++ )
     xUsbDevDsc[i] = UsbDevDsc[i];
   for( i=0; i<sizeof(UsbFunDsc); i++ )
@@ -1014,8 +1014,8 @@ void UsbInit(void) {
 #else
 void UsbInit(void) {
   BYTE i;
-  xdata  BYTE * idata buffadd;
-  buffadd = (xdata BYTE *)OEP1_X_BUFFER_ADDRESS;
+  __xdata  BYTE * __idata buffadd;
+  buffadd = (__xdata BYTE *)OEP1_X_BUFFER_ADDRESS;
 //  bUSBCTL	= 0;	// disconnect from USB
 //  bFUNADR	= 0;	// no device address
   bActCfg	= buffadd[0];
@@ -1023,7 +1023,7 @@ void UsbInit(void) {
   //bActCfg	= pbXBufferAddress[0];	// device unconfigured
   //bActIfc	= pbXBufferAddress[1];
   
-  // copy our descriptors from code to xram	*
+  // copy our descriptors from __code to xram	*
   for ( i=0; i<sizeof(UsbDevDsc); i++ )
     xUsbDevDsc[i] = UsbDevDsc[i];
   for( i=0; i<sizeof(UsbFunDsc); i++ )

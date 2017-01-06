@@ -3,5 +3,5 @@
 void wrchr(char c);
 void wrhexb(int n);
 void wrhexw(int n);
-void wrstr(code char *s);
+void wrstr(__code char *s);
 

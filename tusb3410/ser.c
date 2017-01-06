@@ -7,11 +7,11 @@
 #include "usb.h"
 #include "main.h"
 
-//BYTE xdata myvec;
-BYTE xdata MCR_STAT;
+//BYTE __xdata myvec;
+BYTE __xdata MCR_STAT;
 
-extern tEDB xdata xEPIDsc[3];
-extern tEDB xdata xEPODsc[3];
+extern tEDB __xdata xEPIDsc[3];
+extern tEDB __xdata xEPODsc[3];
 extern void UsbReset(void);
 
 extern void usbEP2Snd(void * vec, int len);
@@ -29,7 +29,7 @@ struct line {
   BYTE	fcr;
   BYTE	lsr;
   BYTE	msr;
-}	xdata	line;
+}	__xdata	line;
 
 void SerInit(void) {
   // The uart interrupts seem to be 'edge triggered' (this is very INTELligent)	*
@@ -62,7 +62,7 @@ void SerInit(void) {
   bMASK1 |= MASK_SIE;
 }
 
-struct line xdata * SerialGet(tDEVICE_REQUEST xdata *req) {
+struct line __xdata * SerialGet(tDEVICE_REQUEST __xdata *req) {
   BYTE fun = req->bRequest;
 
   switch(fun) {
@@ -158,7 +158,7 @@ void SetBaudRate(BYTE baudno){
  }//switch
 }
     
-int SerialSet(tDEVICE_REQUEST xdata *req) {
+int SerialSet(tDEVICE_REQUEST __xdata *req) {
   BYTE fun = req->bRequest;
   
   switch(fun) {
@@ -221,7 +221,7 @@ int SerialSet(tDEVICE_REQUEST xdata *req) {
 
 
 void isr_serls(void) {	// line status
-  BYTE xdata	myvec2[2];
+  BYTE __xdata	myvec2[2];
   myvec2[1]=0;
   if (bLSR1 & 0x1) myvec2[0]=myvec2[0] | ULCR_OVR;
   if (bLSR1 & 0x2) myvec2[0]=myvec2[0] | ULCR_PTE;
@@ -238,7 +238,7 @@ void isr_serls(void) {	// line status
 }
 
 void isr_serms(void) {	// modem status
-  BYTE xdata	myvec2[2];
+  BYTE __xdata	myvec2[2];
 /*
 	myvec2[0]=0;
         myvec2[1]=bMSR1;

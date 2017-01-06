@@ -50,7 +50,7 @@ typedef struct _tEDB
 // register address definition
 //-----------------------------------------------------------------------------
 
-sfr bPCON       = 0x87;         // Power Control Register
+__sfr bPCON       = 0x87;         // Power Control Register
 
 // Power Control Register (@ SFR 87h)
 // PCON            0x87    // sfr 0x87
@@ -65,7 +65,7 @@ sfr bPCON       = 0x87;         // Power Control Register
 // don't use this one because it is not efficient in the binary code.
 // char *pbExternalRAM = (char *)0x010000;
 
-#define pbExternalRAM  ((char xdata *)0x0000)       // use this for the future design
+#define pbExternalRAM  ((char __xdata *)0x0000)       // use this for the future design
 #define pbInternalROM  ((char code  *)0x0000)
 
 // USB related Constant
@@ -404,193 +404,193 @@ sfr bPCON       = 0x87;         // Power Control Register
 
 // EndPoint Desciptor Block
 // USB Data Buffer
-#define bOEP0_BUFFER_ADDRESS    (* (char xdata *)0xFEF0)    // Output Endpoint 0 Buffer Base-address
-#define bIEP0_BUFFER_ADDRESS    (* (char xdata *)0xFEF8)    // Input  Endpoint 0 Buffer Base-address
-#define bEP0_SETUP_ADDRESS      (* (char xdata *)0xFF00)    // setup packet
+#define bOEP0_BUFFER_ADDRESS    (* (char __xdata *)0xFEF0)    // Output Endpoint 0 Buffer Base-address
+#define bIEP0_BUFFER_ADDRESS    (* (char __xdata *)0xFEF8)    // Input  Endpoint 0 Buffer Base-address
+#define bEP0_SETUP_ADDRESS      (* (char __xdata *)0xFF00)    // setup packet
 
-#define pbOEP0_BUFFER_ADDRESS   ( (char xdata *)0xFEF0)    // Output Endpoint 0 Buffer Base-address
-#define pbIEP0_BUFFER_ADDRESS   ( (char xdata *)0xFEF8)    // Input  Endpoint 0 Buffer Base-address
-#define pbEP0_SETUP_ADDRESS     ( (char xdata *)0xFF00)    // setup packet
+#define pbOEP0_BUFFER_ADDRESS   ( (char __xdata *)0xFEF0)    // Output Endpoint 0 Buffer Base-address
+#define pbIEP0_BUFFER_ADDRESS   ( (char __xdata *)0xFEF8)    // Input  Endpoint 0 Buffer Base-address
+#define pbEP0_SETUP_ADDRESS     ( (char __xdata *)0xFF00)    // setup packet
 
 
-#define bOEPCNF1    (* (char xdata *)0xFF08)        // Output Endpoint 1 Configuration
-#define bOEPCNF2    (* (char xdata *)0xFF10)        // Output Endpoint 2 Configuration
-#define bOEPCNF3    (* (char xdata *)0xFF18)        // Output Endpoint 3 Configuration
-//#define bOEPCNF4    (* (char xdata *)0xFF20)        // Output Endpoint 4 Configuration
-//#define bOEPCNF5    (* (char xdata *)0xFF28)        // Output Endpoint 5 Configuration
-//#define bOEPCNF6    (* (char xdata *)0xFF30)        // Output Endpoint 6 Configuration
-//#define bOEPCNF7    (* (char xdata *)0xFF38)        // Output Endpoint 7 Configuration
+#define bOEPCNF1    (* (char __xdata *)0xFF08)        // Output Endpoint 1 Configuration
+#define bOEPCNF2    (* (char __xdata *)0xFF10)        // Output Endpoint 2 Configuration
+#define bOEPCNF3    (* (char __xdata *)0xFF18)        // Output Endpoint 3 Configuration
+//#define bOEPCNF4    (* (char __xdata *)0xFF20)        // Output Endpoint 4 Configuration
+//#define bOEPCNF5    (* (char __xdata *)0xFF28)        // Output Endpoint 5 Configuration
+//#define bOEPCNF6    (* (char __xdata *)0xFF30)        // Output Endpoint 6 Configuration
+//#define bOEPCNF7    (* (char __xdata *)0xFF38)        // Output Endpoint 7 Configuration
 
-#define bOEPBBAX1   (* (char xdata *)0xFF09)        // Output Endpoint 1 X-Buffer Base-address
-#define bOEPBBAX2   (* (char xdata *)0xFF11)        // Output Endpoint 2 X-Buffer Base-address
-#define bOEPBBAX3   (* (char xdata *)0xFF19)        // Output Endpoint 3 X-Buffer Base-address
-//#define bOEPBBAX4   (* (char xdata *)0xFF21)        // Output Endpoint 4 X-Buffer Base-address
-//#define bOEPBBAX5   (* (char xdata *)0xFF29)        // Output Endpoint 5 X-Buffer Base-address
-//#define bOEPBBAX6   (* (char xdata *)0xFF31)        // Output Endpoint 6 X-Buffer Base-address
-//#define bOEPBBAX7   (* (char xdata *)0xFF39)        // Output Endpoint 7 X-Buffer Base-address
+#define bOEPBBAX1   (* (char __xdata *)0xFF09)        // Output Endpoint 1 X-Buffer Base-address
+#define bOEPBBAX2   (* (char __xdata *)0xFF11)        // Output Endpoint 2 X-Buffer Base-address
+#define bOEPBBAX3   (* (char __xdata *)0xFF19)        // Output Endpoint 3 X-Buffer Base-address
+//#define bOEPBBAX4   (* (char __xdata *)0xFF21)        // Output Endpoint 4 X-Buffer Base-address
+//#define bOEPBBAX5   (* (char __xdata *)0xFF29)        // Output Endpoint 5 X-Buffer Base-address
+//#define bOEPBBAX6   (* (char __xdata *)0xFF31)        // Output Endpoint 6 X-Buffer Base-address
+//#define bOEPBBAX7   (* (char __xdata *)0xFF39)        // Output Endpoint 7 X-Buffer Base-address
 
-#define bOEPBCTX1   (* (char xdata *)0xFF0A)        // Output Endpoint 1 X Byte Count
-#define bOEPBCTX2   (* (char xdata *)0xFF12)        // Output Endpoint 2 X Byte Count
+#define bOEPBCTX1   (* (char __xdata *)0xFF0A)        // Output Endpoint 1 X Byte Count
+#define bOEPBCTX2   (* (char __xdata *)0xFF12)        // Output Endpoint 2 X Byte Count
 
-#define bOEPBCTX3   (* (char xdata *)0xFF1A)        // Output Endpoint 3 X Byte Count
-//#define bOEPBCTX4   (* (char xdata *)0xFF22)        // Output Endpoint 4 X Byte Count
-//#define bOEPBCTX5   (* (char xdata *)0xFF2A)        // Output Endpoint 5 X Byte Count
-//#define bOEPBCTX6   (* (char xdata *)0xFF32)        // Output Endpoint 6 X Byte Count
-//#define bOEPBCTX7   (* (char xdata *)0xFF3A)        // Output Endpoint 7 X Byte Count
+#define bOEPBCTX3   (* (char __xdata *)0xFF1A)        // Output Endpoint 3 X Byte Count
+//#define bOEPBCTX4   (* (char __xdata *)0xFF22)        // Output Endpoint 4 X Byte Count
+//#define bOEPBCTX5   (* (char __xdata *)0xFF2A)        // Output Endpoint 5 X Byte Count
+//#define bOEPBCTX6   (* (char __xdata *)0xFF32)        // Output Endpoint 6 X Byte Count
+//#define bOEPBCTX7   (* (char __xdata *)0xFF3A)        // Output Endpoint 7 X Byte Count
 
-#define bOEPBBAY1   (* (char xdata *)0xFF0D)        // Output Endpoint 1 Y-Buffer Base-address
-#define bOEPBBAY2   (* (char xdata *)0xFF15)        // Output Endpoint 2 Y-Buffer Base-address
-#define bOEPBBAY3   (* (char xdata *)0xFF1D)        // Output Endpoint 3 Y-Buffer Base-address
-//#define bOEPBBAY4   (* (char xdata *)0xFF25)        // Output Endpoint 4 Y-Buffer Base-address
-//#define bOEPBBAY5   (* (char xdata *)0xFF2D)        // Output Endpoint 5 Y-Buffer Base-address
-//#define bOEPBBAY6   (* (char xdata *)0xFF35)        // Output Endpoint 6 Y-Buffer Base-address
-//#define bOEPBBAY7   (* (char xdata *)0xFF3D)        // Output Endpoint 7 Y-Buffer Base-address
+#define bOEPBBAY1   (* (char __xdata *)0xFF0D)        // Output Endpoint 1 Y-Buffer Base-address
+#define bOEPBBAY2   (* (char __xdata *)0xFF15)        // Output Endpoint 2 Y-Buffer Base-address
+#define bOEPBBAY3   (* (char __xdata *)0xFF1D)        // Output Endpoint 3 Y-Buffer Base-address
+//#define bOEPBBAY4   (* (char __xdata *)0xFF25)        // Output Endpoint 4 Y-Buffer Base-address
+//#define bOEPBBAY5   (* (char __xdata *)0xFF2D)        // Output Endpoint 5 Y-Buffer Base-address
+//#define bOEPBBAY6   (* (char __xdata *)0xFF35)        // Output Endpoint 6 Y-Buffer Base-address
+//#define bOEPBBAY7   (* (char __xdata *)0xFF3D)        // Output Endpoint 7 Y-Buffer Base-address
 
-#define bOEPBCTY1   (* (char xdata *)0xFF0E)        // Output Endpoint 1 Y Byte Count
-#define bOEPBCTY2   (* (char xdata *)0xFF16)        // Output Endpoint 2 Y Byte Count
-#define bOEPBCTY3   (* (char xdata *)0xFF1E)        // Output Endpoint 3 Y Byte Count
-//#define bOEPBCTY4   (* (char xdata *)0xFF26)        // Output Endpoint 4 Y Byte Count
-//#define bOEPBCTY5   (* (char xdata *)0xFF2E)        // Output Endpoint 5 Y Byte Count
-//#define bOEPBCTY6   (* (char xdata *)0xFF36)        // Output Endpoint 6 Y Byte Count
-//#define bOEPBCTY7   (* (char xdata *)0xFF3E)        // Output Endpoint 7 Y Byte Count
+#define bOEPBCTY1   (* (char __xdata *)0xFF0E)        // Output Endpoint 1 Y Byte Count
+#define bOEPBCTY2   (* (char __xdata *)0xFF16)        // Output Endpoint 2 Y Byte Count
+#define bOEPBCTY3   (* (char __xdata *)0xFF1E)        // Output Endpoint 3 Y Byte Count
+//#define bOEPBCTY4   (* (char __xdata *)0xFF26)        // Output Endpoint 4 Y Byte Count
+//#define bOEPBCTY5   (* (char __xdata *)0xFF2E)        // Output Endpoint 5 Y Byte Count
+//#define bOEPBCTY6   (* (char __xdata *)0xFF36)        // Output Endpoint 6 Y Byte Count
+//#define bOEPBCTY7   (* (char __xdata *)0xFF3E)        // Output Endpoint 7 Y Byte Count
 
-#define bOEPSIZXY1  (* (char xdata *)0xFF0F)        // Output Endpoint 1 XY-Buffer Size
-#define bOEPSIZXY2  (* (char xdata *)0xFF17)        // Output Endpoint 2 XY-Buffer Size
-#define bOEPSIZXY3  (* (char xdata *)0xFF1F)        // Output Endpoint 3 XY-Buffer Size
-//#define bOEPSIZXY4  (* (char xdata *)0xFF27)        // Output Endpoint 4 XY-Buffer Size
-//#define bOEPSIZXY5  (* (char xdata *)0xFF2F)        // Output Endpoint 5 XY-Buffer Size
-//#define bOEPSIZXY6  (* (char xdata *)0xFF37)        // Output Endpoint 6 XY-Buffer Size
-//#define bOEPSIZXY7  (* (char xdata *)0xFF3F)        // Output Endpoint 7 XY-Buffer Size
+#define bOEPSIZXY1  (* (char __xdata *)0xFF0F)        // Output Endpoint 1 XY-Buffer Size
+#define bOEPSIZXY2  (* (char __xdata *)0xFF17)        // Output Endpoint 2 XY-Buffer Size
+#define bOEPSIZXY3  (* (char __xdata *)0xFF1F)        // Output Endpoint 3 XY-Buffer Size
+//#define bOEPSIZXY4  (* (char __xdata *)0xFF27)        // Output Endpoint 4 XY-Buffer Size
+//#define bOEPSIZXY5  (* (char __xdata *)0xFF2F)        // Output Endpoint 5 XY-Buffer Size
+//#define bOEPSIZXY6  (* (char __xdata *)0xFF37)        // Output Endpoint 6 XY-Buffer Size
+//#define bOEPSIZXY7  (* (char __xdata *)0xFF3F)        // Output Endpoint 7 XY-Buffer Size
 
-#define bIEPCNF1    (* (char xdata *)0xFF48)        // Input Endpoint 1 Configuration
-#define bIEPCNF2    (* (char xdata *)0xFF50)        // Input Endpoint 2 Configuration
-#define bIEPCNF3    (* (char xdata *)0xFF58)        // Input Endpoint 3 Configuration
-//#define bIEPCNF4    (* (char xdata *)0xFF60)        // Input Endpoint 4 Configuration
-//#define bIEPCNF5    (* (char xdata *)0xFF68)        // Input Endpoint 5 Configuration
-//#define bIEPCNF6    (* (char xdata *)0xFF70)        // Input Endpoint 6 Configuration
-//#define bIEPCNF7    (* (char xdata *)0xFF78)        // Input Endpoint 7 Configuration
+#define bIEPCNF1    (* (char __xdata *)0xFF48)        // Input Endpoint 1 Configuration
+#define bIEPCNF2    (* (char __xdata *)0xFF50)        // Input Endpoint 2 Configuration
+#define bIEPCNF3    (* (char __xdata *)0xFF58)        // Input Endpoint 3 Configuration
+//#define bIEPCNF4    (* (char __xdata *)0xFF60)        // Input Endpoint 4 Configuration
+//#define bIEPCNF5    (* (char __xdata *)0xFF68)        // Input Endpoint 5 Configuration
+//#define bIEPCNF6    (* (char __xdata *)0xFF70)        // Input Endpoint 6 Configuration
+//#define bIEPCNF7    (* (char __xdata *)0xFF78)        // Input Endpoint 7 Configuration
 
-#define bIEPBBAX1   (* (char xdata *)0xFF49)        // Input Endpoint 1 X-Buffer Base-address
-#define bIEPBBAX2   (* (char xdata *)0xFF51)        // Input Endpoint 2 X-Buffer Base-address
-#define bIEPBBAX3   (* (char xdata *)0xFF59)        // Input Endpoint 3 X-Buffer Base-address
-//#define bIEPBBAX4   (* (char xdata *)0xFF61)        // Input Endpoint 4 X-Buffer Base-address
-//#define bIEPBBAX5   (* (char xdata *)0xFF69)        // Input Endpoint 5 X-Buffer Base-address
-//#define bIEPBBAX6   (* (char xdata *)0xFF71)        // Input Endpoint 6 X-Buffer Base-address
-//#define bIEPBBAX7   (* (char xdata *)0xFF79)        // Input Endpoint 7 X-Buffer Base-address
+#define bIEPBBAX1   (* (char __xdata *)0xFF49)        // Input Endpoint 1 X-Buffer Base-address
+#define bIEPBBAX2   (* (char __xdata *)0xFF51)        // Input Endpoint 2 X-Buffer Base-address
+#define bIEPBBAX3   (* (char __xdata *)0xFF59)        // Input Endpoint 3 X-Buffer Base-address
+//#define bIEPBBAX4   (* (char __xdata *)0xFF61)        // Input Endpoint 4 X-Buffer Base-address
+//#define bIEPBBAX5   (* (char __xdata *)0xFF69)        // Input Endpoint 5 X-Buffer Base-address
+//#define bIEPBBAX6   (* (char __xdata *)0xFF71)        // Input Endpoint 6 X-Buffer Base-address
+//#define bIEPBBAX7   (* (char __xdata *)0xFF79)        // Input Endpoint 7 X-Buffer Base-address
 
-#define bIEPDCTX1   (* (char xdata *)0xFF4A)        // Input Endpoint 1 X Byte Count
-#define bIEPDCTX2   (* (char xdata *)0xFF52)        // Input Endpoint 2 X Byte Count
-#define bIEPDCTX3   (* (char xdata *)0xFF5A)        // Input Endpoint 3 X Byte Count
-//#define bIEPDCTX4   (* (char xdata *)0xFF62)        // Input Endpoint 4 X Byte Count
-//#define bIEPDCTX5   (* (char xdata *)0xFF6A)        // Input Endpoint 5 X Byte Count
-//#define bIEPDCTX6   (* (char xdata *)0xFF72)        // Input Endpoint 6 X Byte Count
-//#define bIEPDCTX7   (* (char xdata *)0xFF7A)        // Input Endpoint 7 X Byte Count
+#define bIEPDCTX1   (* (char __xdata *)0xFF4A)        // Input Endpoint 1 X Byte Count
+#define bIEPDCTX2   (* (char __xdata *)0xFF52)        // Input Endpoint 2 X Byte Count
+#define bIEPDCTX3   (* (char __xdata *)0xFF5A)        // Input Endpoint 3 X Byte Count
+//#define bIEPDCTX4   (* (char __xdata *)0xFF62)        // Input Endpoint 4 X Byte Count
+//#define bIEPDCTX5   (* (char __xdata *)0xFF6A)        // Input Endpoint 5 X Byte Count
+//#define bIEPDCTX6   (* (char __xdata *)0xFF72)        // Input Endpoint 6 X Byte Count
+//#define bIEPDCTX7   (* (char __xdata *)0xFF7A)        // Input Endpoint 7 X Byte Count
                     
-#define bIEPBBAY1   (* (char xdata *)0xFF4D)        // Input Endpoint 1 Y-Buffer Base-address
-#define bIEPBBAY2   (* (char xdata *)0xFF55)        // Input Endpoint 2 Y-Buffer Base-address
-#define bIEPBBAY3   (* (char xdata *)0xFF5D)        // Input Endpoint 3 Y-Buffer Base-address
-//#define bIEPBBAY4   (* (char xdata *)0xFF65)        // Input Endpoint 4 Y-Buffer Base-address
-//#define bIEPBBAY5   (* (char xdata *)0xFF6D)        // Input Endpoint 5 Y-Buffer Base-address
-//#define bIEPBBAY6   (* (char xdata *)0xFF75)        // Input Endpoint 6 Y-Buffer Base-address
-//#define bIEPBBAY7   (* (char xdata *)0xFF7D)        // Input Endpoint 7 Y-Buffer Base-address
+#define bIEPBBAY1   (* (char __xdata *)0xFF4D)        // Input Endpoint 1 Y-Buffer Base-address
+#define bIEPBBAY2   (* (char __xdata *)0xFF55)        // Input Endpoint 2 Y-Buffer Base-address
+#define bIEPBBAY3   (* (char __xdata *)0xFF5D)        // Input Endpoint 3 Y-Buffer Base-address
+//#define bIEPBBAY4   (* (char __xdata *)0xFF65)        // Input Endpoint 4 Y-Buffer Base-address
+//#define bIEPBBAY5   (* (char __xdata *)0xFF6D)        // Input Endpoint 5 Y-Buffer Base-address
+//#define bIEPBBAY6   (* (char __xdata *)0xFF75)        // Input Endpoint 6 Y-Buffer Base-address
+//#define bIEPBBAY7   (* (char __xdata *)0xFF7D)        // Input Endpoint 7 Y-Buffer Base-address
                     
-#define bIEPDCTY1   (* (char xdata *)0xFF4E)        // Input Endpoint 1 Y Byte Count
-#define bIEPDCTY2   (* (char xdata *)0xFF56)        // Input Endpoint 2 Y Byte Count
-#define bIEPDCTY3   (* (char xdata *)0xFF5E)        // Input Endpoint 3 Y Byte Count
-//#define bIEPDCTY4   (* (char xdata *)0xFF66)        // Input Endpoint 4 Y Byte Count
-//#define bIEPDCTY5   (* (char xdata *)0xFF6E)        // Input Endpoint 5 Y Byte Count
-//#define bIEPDCTY6   (* (char xdata *)0xFF76)        // Input Endpoint 6 Y Byte Count
-//#define bIEPDCTY7   (* (char xdata *)0xFF7E)        // Input Endpoint 7 Y Byte Count
+#define bIEPDCTY1   (* (char __xdata *)0xFF4E)        // Input Endpoint 1 Y Byte Count
+#define bIEPDCTY2   (* (char __xdata *)0xFF56)        // Input Endpoint 2 Y Byte Count
+#define bIEPDCTY3   (* (char __xdata *)0xFF5E)        // Input Endpoint 3 Y Byte Count
+//#define bIEPDCTY4   (* (char __xdata *)0xFF66)        // Input Endpoint 4 Y Byte Count
+//#define bIEPDCTY5   (* (char __xdata *)0xFF6E)        // Input Endpoint 5 Y Byte Count
+//#define bIEPDCTY6   (* (char __xdata *)0xFF76)        // Input Endpoint 6 Y Byte Count
+//#define bIEPDCTY7   (* (char __xdata *)0xFF7E)        // Input Endpoint 7 Y Byte Count
 
-#define bIEPSIZXY1  (* (char xdata *)0xFF4F)        // Input Endpoint 1 XY-Buffer Size
-#define bIEPSIZXY2  (* (char xdata *)0xFF57)        // Input Endpoint 2 XY-Buffer Size
-#define bIEPSIZXY3  (* (char xdata *)0xFF5F)        // Input Endpoint 3 XY-Buffer Size
-//#define bIEPSIZXY4  (* (char xdata *)0xFF67)        // Input Endpoint 4 XY-Buffer Size
-//#define bIEPSIZXY5  (* (char xdata *)0xFF6F)        // Input Endpoint 5 XY-Buffer Size
-//#define bIEPSIZXY6  (* (char xdata *)0xFF77)        // Input Endpoint 6 XY-Buffer Size
-//#define bIEPSIZXY7  (* (char xdata *)0xFF7F)        // Input Endpoint 7 XY-Buffer Size
+#define bIEPSIZXY1  (* (char __xdata *)0xFF4F)        // Input Endpoint 1 XY-Buffer Size
+#define bIEPSIZXY2  (* (char __xdata *)0xFF57)        // Input Endpoint 2 XY-Buffer Size
+#define bIEPSIZXY3  (* (char __xdata *)0xFF5F)        // Input Endpoint 3 XY-Buffer Size
+//#define bIEPSIZXY4  (* (char __xdata *)0xFF67)        // Input Endpoint 4 XY-Buffer Size
+//#define bIEPSIZXY5  (* (char __xdata *)0xFF6F)        // Input Endpoint 5 XY-Buffer Size
+//#define bIEPSIZXY6  (* (char __xdata *)0xFF77)        // Input Endpoint 6 XY-Buffer Size
+//#define bIEPSIZXY7  (* (char __xdata *)0xFF7F)        // Input Endpoint 7 XY-Buffer Size
 
 // Endpoint 0 Descriptor Registers
-#define bIEPCNFG0   (* (char xdata *)0xFF80)        // Input Endpoint Configuration Register
-#define bIEPBCNT0   (* (char xdata *)0xFF81)        // Input Endpoint 0 Byte Count
-#define bOEPCNFG0   (* (char xdata *)0xFF82)        // Output Endpoint Configuration Register
-#define bOEPBCNT0   (* (char xdata *)0xFF83)        // Output Endpoint 0 Byte Count
+#define bIEPCNFG0   (* (char __xdata *)0xFF80)        // Input Endpoint Configuration Register
+#define bIEPBCNT0   (* (char __xdata *)0xFF81)        // Input Endpoint 0 Byte Count
+#define bOEPCNFG0   (* (char __xdata *)0xFF82)        // Output Endpoint Configuration Register
+#define bOEPBCNT0   (* (char __xdata *)0xFF83)        // Output Endpoint 0 Byte Count
 
 // Miscellaneous Registers
-#define bROMS       (* (char xdata *)0xFF90)        // ROM Shadow Configuration Register
-//#define bGLOBCTL    (* (char xdata *)0xFF91)        // Global Control Register
+#define bROMS       (* (char __xdata *)0xFF90)        // ROM Shadow Configuration Register
+//#define bGLOBCTL    (* (char __xdata *)0xFF91)        // Global Control Register
 
 #define	VECINT	0xff92
-#define bVECINT     (* (char xdata *)VECINT)        // Vector Interrupt Register
-#define bWDCSR      (* (char xdata *)0xFF93)        // watchdog timer register
+#define bVECINT     (* (char __xdata *)VECINT)        // Vector Interrupt Register
+#define bWDCSR      (* (char __xdata *)0xFF93)        // watchdog timer register
 
 
-#define PUR3        (* (char xdata *)0xFF9E)        // GPIO Pull Up Register for Port 3
+#define PUR3        (* (char __xdata *)0xFF9E)        // GPIO Pull Up Register for Port 3
 
 // UART Registers
-#define bRDR1       (* (char xdata *)0xFFA0)        // UART1 Receiver Data Register
-#define bTDR1       (* (char xdata *)0xFFA1)        // UART1 Transmitter Data Register
-#define bLCR1       (* (char xdata *)0xFFA2)        // UART1 Line Control Register
-#define bFCRL1      (* (char xdata *)0xFFA3)        // UART1 Flow Control Register
-#define bMCR1       (* (char xdata *)0xFFA4)        // UART1 Modem Control Register
-#define bLSR1       (* (char xdata *)0xFFA5)        // UART1 Line Status Register
-#define bMSR1       (* (char xdata *)0xFFA6)        // UART1 Modem Status Register
-#define bDLL1       (* (char xdata *)0xFFA7)        // UART1 Divisor Register Low-byte
-#define bDLH1       (* (char xdata *)0xFFA8)        // UART1 Divisor Register High-byte
-#define bXON1       (* (char xdata *)0xFFA9)        // UART1 Xon Register
-#define bXOFF1      (* (char xdata *)0xFFAA)        // UART1 Xoff Register
-#define bMASK1      (* (char xdata *)0xFFAB)        // UART1 Interrupt Mask Register
+#define bRDR1       (* (char __xdata *)0xFFA0)        // UART1 Receiver Data Register
+#define bTDR1       (* (char __xdata *)0xFFA1)        // UART1 Transmitter Data Register
+#define bLCR1       (* (char __xdata *)0xFFA2)        // UART1 Line Control Register
+#define bFCRL1      (* (char __xdata *)0xFFA3)        // UART1 Flow Control Register
+#define bMCR1       (* (char __xdata *)0xFFA4)        // UART1 Modem Control Register
+#define bLSR1       (* (char __xdata *)0xFFA5)        // UART1 Line Status Register
+#define bMSR1       (* (char __xdata *)0xFFA6)        // UART1 Modem Status Register
+#define bDLL1       (* (char __xdata *)0xFFA7)        // UART1 Divisor Register Low-byte
+#define bDLH1       (* (char __xdata *)0xFFA8)        // UART1 Divisor Register High-byte
+#define bXON1       (* (char __xdata *)0xFFA9)        // UART1 Xon Register
+#define bXOFF1      (* (char __xdata *)0xFFAA)        // UART1 Xoff Register
+#define bMASK1      (* (char __xdata *)0xFFAB)        // UART1 Interrupt Mask Register
 
-//#define bRDR2       (* (char xdata *)0xFFB0)        // UART2 Receiver Data Register
-//#define bTDR2       (* (char xdata *)0xFFB1)        // UART2 Transmitter Data Register
-//#define bLCR2       (* (char xdata *)0xFFB2)        // UART2 Line Control Register
-//#define bFCRL2      (* (char xdata *)0xFFB3)        // UART2 Flow Control Register
-//#define bMCR2       (* (char xdata *)0xFFB4)        // UART2 Modem Control Register
-//#define bLSR2       (* (char xdata *)0xFFB5)        // UART2 Line Status Register
-//#define bMSR2       (* (char xdata *)0xFFB6)        // UART2 Modem Status Register
-//#define bDLL2       (* (char xdata *)0xFFB7)        // UART2 Divisor Register Low-byte
-//#define bDLH2       (* (char xdata *)0xFFB8)        // UART2 Divisor Register High-byte
-//#define bXON2       (* (char xdata *)0xFFB9)        // UART2 Xon Register
-//#define bXOFF2      (* (char xdata *)0xFFBA)        // UART2 Xoff Register
-//#define bMASK2      (* (char xdata *)0xFFBB)        // UART2 Interrupt Mask Register
+//#define bRDR2       (* (char __xdata *)0xFFB0)        // UART2 Receiver Data Register
+//#define bTDR2       (* (char __xdata *)0xFFB1)        // UART2 Transmitter Data Register
+//#define bLCR2       (* (char __xdata *)0xFFB2)        // UART2 Line Control Register
+//#define bFCRL2      (* (char __xdata *)0xFFB3)        // UART2 Flow Control Register
+//#define bMCR2       (* (char __xdata *)0xFFB4)        // UART2 Modem Control Register
+//#define bLSR2       (* (char __xdata *)0xFFB5)        // UART2 Line Status Register
+//#define bMSR2       (* (char __xdata *)0xFFB6)        // UART2 Modem Status Register
+//#define bDLL2       (* (char __xdata *)0xFFB7)        // UART2 Divisor Register Low-byte
+//#define bDLH2       (* (char __xdata *)0xFFB8)        // UART2 Divisor Register High-byte
+//#define bXON2       (* (char __xdata *)0xFFB9)        // UART2 Xon Register
+//#define bXOFF2      (* (char __xdata *)0xFFBA)        // UART2 Xoff Register
+//#define bMASK2      (* (char __xdata *)0xFFBB)        // UART2 Interrupt Mask Register
 
 // DMA registers
-#define bDMACDR1    (* (char xdata *)0xFFE0)        // DMA Channel 1 Definition Register for UART 1 Transmitter
-#define bDMACSR1    (* (char xdata *)0xFFE1)        // DMA Channel 1 Control & Status Register
-//#define bDMACDR2    (* (char xdata *)0xFFE2)        // DMA Channel 2 Definition Register for UART 2 Transmitter
-//#define bDMACSR2    (* (char xdata *)0xFFE3)        // DMA Channel 2 Control & Status Register
-#define bDMACDR3    (* (char xdata *)0xFFE4)        // DMA Channel 3 Definition Register for UART 1 Receiver
-#define bDMACSR3    (* (char xdata *)0xFFE5)        // DMA Channel 3 Control & Status Register
-//#define bDMACDR4    (* (char xdata *)0xFFE6)        // DMA Channel 4 Definition Register for UART 2 Receiver
-//#define bDMACSR4    (* (char xdata *)0xFFE7)        // DMA Channel 4 Control & Status Register
+#define bDMACDR1    (* (char __xdata *)0xFFE0)        // DMA Channel 1 Definition Register for UART 1 Transmitter
+#define bDMACSR1    (* (char __xdata *)0xFFE1)        // DMA Channel 1 Control & Status Register
+//#define bDMACDR2    (* (char __xdata *)0xFFE2)        // DMA Channel 2 Definition Register for UART 2 Transmitter
+//#define bDMACSR2    (* (char __xdata *)0xFFE3)        // DMA Channel 2 Control & Status Register
+#define bDMACDR3    (* (char __xdata *)0xFFE4)        // DMA Channel 3 Definition Register for UART 1 Receiver
+#define bDMACSR3    (* (char __xdata *)0xFFE5)        // DMA Channel 3 Control & Status Register
+//#define bDMACDR4    (* (char __xdata *)0xFFE6)        // DMA Channel 4 Definition Register for UART 2 Receiver
+//#define bDMACSR4    (* (char __xdata *)0xFFE7)        // DMA Channel 4 Control & Status Register
 
 // Serial Number Registers
-#define bSERNUM0    (* (unsigned char xdata *)0xFFE8)        // Serial Number Register
-#define bSERNUM1    (* (unsigned char xdata *)0xFFE9)        // Serial Number Register
-#define bSERNUM2    (* (unsigned char xdata *)0xFFEA)        // Serial Number Register
-#define bSERNUM3    (* (unsigned char xdata *)0xFFEB)        // Serial Number Register
-#define bSERNUM4    (* (unsigned char xdata *)0xFFEC)        // Serial Number Register
-#define bSERNUM5    (* (unsigned char xdata *)0xFFED)        // Serial Number Register
-#define bSERNUM6    (* (unsigned char xdata *)0xFFEE)        // Serial Number Register
-#define bSERNUM7    (* (unsigned char xdata *)0xFFEF)        // Serial Number Register
+#define bSERNUM0    (* (unsigned char __xdata *)0xFFE8)        // Serial Number Register
+#define bSERNUM1    (* (unsigned char __xdata *)0xFFE9)        // Serial Number Register
+#define bSERNUM2    (* (unsigned char __xdata *)0xFFEA)        // Serial Number Register
+#define bSERNUM3    (* (unsigned char __xdata *)0xFFEB)        // Serial Number Register
+#define bSERNUM4    (* (unsigned char __xdata *)0xFFEC)        // Serial Number Register
+#define bSERNUM5    (* (unsigned char __xdata *)0xFFED)        // Serial Number Register
+#define bSERNUM6    (* (unsigned char __xdata *)0xFFEE)        // Serial Number Register
+#define bSERNUM7    (* (unsigned char __xdata *)0xFFEF)        // Serial Number Register
 
 //I2C Registers     
-#define bI2CSTA     (* (char xdata *)0xFFF0)        // I2C Status and Control Register
-#define bI2CDAO     (* (char xdata *)0xFFF1)        // I2C Data Out Register
-#define bI2CDAI     (* (char xdata *)0xFFF2)        // I2C Data In Register
-#define bI2CADR     (* (char xdata *)0xFFF3)        // I2C Address Register
+#define bI2CSTA     (* (char __xdata *)0xFFF0)        // I2C Status and Control Register
+#define bI2CDAO     (* (char __xdata *)0xFFF1)        // I2C Data Out Register
+#define bI2CDAI     (* (char __xdata *)0xFFF2)        // I2C Data In Register
+#define bI2CADR     (* (char __xdata *)0xFFF3)        // I2C Address Register
 
 // USB Registers
-#define bDEVREVL    (* (char xdata *)0xFFF5)        // Device Revision Number
-#define bDEVREVH    (* (char xdata *)0xFFF6)        // Device Revision Number
-#define bDEVPIDL    (* (char xdata *)0xFFF7)        // Device PID
-#define bDEVPIDH    (* (char xdata *)0xFFF8)        // Device PID
-#define bDEVVIDL    (* (char xdata *)0xFFF9)        // Device VID
-#define bDEVVIDH    (* (char xdata *)0xFFFA)        // Device VID
-#define bMODECNFG   (* (char xdata *)0xFFFB)        // Mode configuration register
-#define bUSBCTL     (* (char xdata *)0xFFFC)        // USB Control Register
-#define bUSBMSK     (* (char xdata *)0xFFFD)        // USB Interrupt Mask Register
-#define bUSBSTA     (* (char xdata *)0xFFFE)        // USB Status Register
-#define bFUNADR     (* (char xdata *)0xFFFF)        // This register contains the device function address.
+#define bDEVREVL    (* (char __xdata *)0xFFF5)        // Device Revision Number
+#define bDEVREVH    (* (char __xdata *)0xFFF6)        // Device Revision Number
+#define bDEVPIDL    (* (char __xdata *)0xFFF7)        // Device PID
+#define bDEVPIDH    (* (char __xdata *)0xFFF8)        // Device PID
+#define bDEVVIDL    (* (char __xdata *)0xFFF9)        // Device VID
+#define bDEVVIDH    (* (char __xdata *)0xFFFA)        // Device VID
+#define bMODECNFG   (* (char __xdata *)0xFFFB)        // Mode configuration register
+#define bUSBCTL     (* (char __xdata *)0xFFFC)        // USB Control Register
+#define bUSBMSK     (* (char __xdata *)0xFFFD)        // USB Interrupt Mask Register
+#define bUSBSTA     (* (char __xdata *)0xFFFE)        // USB Status Register
+#define bFUNADR     (* (char __xdata *)0xFFFF)        // This register contains the device function address.
 
 #endif /* _TUSB3410_H_ */
